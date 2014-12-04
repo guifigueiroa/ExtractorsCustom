@@ -14,8 +14,8 @@ public class Main {
 	public static void main(String[] args){
 		try {
 			
-			Image image1 = ImageIO.read (new File("/Users/guilhermefigueiroa/Dropbox/workspace/ExtractorsCustom/src/images/monalisa1.jpg"));
-			Image image2 = ImageIO.read (new File("/Users/guilhermefigueiroa/Dropbox/workspace/ExtractorsCustom/src/images/monalisa2.jpg"));
+			Image image1 = ImageIO.read(new File(Main.class.getResource("images/monalisa1.jpg").getPath()));
+			Image image2 = ImageIO.read(new File(Main.class.getResource("images/monalisa2.jpg").getPath()));
 			
 			// Calcula medidas de similaridade
 			double result1 = getSimilarity(new CanberraSimilarity(), image1, image2);
@@ -32,9 +32,13 @@ public class Main {
 					+ "\n" + result5 + "\n" + result6 + "\n" + result7 + "\n" + result8 
 					+ "\n" + result9);
 			
-			double result = result1 + result2 + result3 + result4 
+			double sum = result1 + result2 + result3 + result4 
 					+ result5 + result6 + result7 + result8 
 					+ result9;
+			
+			double result = (result1/sum) * (result2/sum) * (result3/sum) 
+					* (result4/sum) * (result5/sum) * (result6/sum)
+					* (result7/sum) * (result8/sum) * (result9/sum);
 			
 			System.out.println("result = " + result);
 			
@@ -49,7 +53,7 @@ public class Main {
 		sim.addExtractor(new ColorExtract());
 		sim.addExtractor(new ExtractorArea());
 		sim.addExtractor(new ExtractorPerimeter());
-		//sim.addExtractor(new ExtractorSignature());//Retorna sempre NaN
+		//sim.addExtractor(new ExtractorSignature()); //Retorna sempre NaN
 		sim.addExtractor(new ExtractorWidth());
 		sim.addExtractor(new ExtractorHeight());
 		sim.addExtractor(new ExtractorCenterOfMassX());
